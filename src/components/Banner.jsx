@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { GoSearch } from "react-icons/go";
 import {motion} from 'motion/react'

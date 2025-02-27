@@ -1,9 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { IoMdNotifications } from "react-icons/io";
+import AuthContext from "../context/AuthContext";
 
 const Navbar = () => {
+    const {user, signOutUser, loading} = useContext(AuthContext)
+
+    const handleSignOut = () => {
+        signOutUser()
+        .then(() => {
+        })
+        .catch(error => {
+        })
+    }
 
     const links = (
         <>
@@ -63,18 +73,25 @@ const Navbar = () => {
                 <p className="absolute text-xl -top-2 -right-2 font-bold text-black -6 h-6 flex items-center justify-center rounded-full">12</p>
                 
             </div>
+            {
+                user?<>
+                    <div className="dropdown dropdown-bottom dropdown-end">
+                    <img tabIndex={0} className="w-[52px] h-[52px] rounded-full cursor-pointer" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1000] w-[130px] p-2 shadow flex flex-col items-center gap-3 text-xl">
+                        <Link>Profile</Link>
+                        <Link>Dashboard</Link>
+                        <Link onClick={handleSignOut}>Logout</Link>
+                    </ul>
+                        
+                    </div>
+                </> : <>
+                    <NavLink to='/login'><p className="btn bg-rose-500 text-white hover:bg-rose-500 hover:shadow">Loging</p></NavLink>
+                </>
+            }
 
             {/* avater */}
-            <div className="dropdown dropdown-bottom dropdown-end">
-            <img tabIndex={0} className="w-[52px] h-[52px] rounded-full cursor-pointer" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1000] w-[130px] p-2 shadow flex flex-col items-center gap-3 text-xl">
-                <Link>Profile</Link>
-                <Link>Dashboard</Link>
-                <Link>Logout</Link>
-            </ul>
-                
-            </div>
-            <p className="btn bg-rose-500 text-white hover:bg-rose-500 hover:shadow">Loging</p>
+
+
         </div>
 
         </div>
